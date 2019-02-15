@@ -719,7 +719,21 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
         NSObject<CDVFileSystem> *fs = [self filesystemForURL:localURI];
         result = [fs removeFileAtURL:localURI];
     }
+    [self clearTmpDirectory];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+/* removes the tmp directory
+*
+*/
+- (void)clearTmpDirectory
+{
+    NSArray *tmpDirectory = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:NULL];
+    for (NSString *file in tmpDirectory) {
+        if ([file.pathExtension isEqual: @".jpeg"]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), file] error:NULL];
+        }
+    }
 }
 
 /* recursively removes the directory
