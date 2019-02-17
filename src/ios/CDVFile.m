@@ -730,7 +730,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
 {
     NSArray *tmpDirectory = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:NULL];
     for (NSString *file in tmpDirectory) {
-        if ([file.pathExtension isEqual: @".jpeg"]) {
+        if ([file.pathExtension isEqual: @"jpeg"] || [file.pathExtension isEqual: @"jpg"] || [file.pathExtension isEqual: @"png"] ) {
             [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), file] error:NULL];
         }
     }
